@@ -1,44 +1,59 @@
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
 
 interface Props {
   params: {
-    eventId: string;
-  };
+    eventId: string
+  }
 }
 
 const eventNames: Record<string, string> = {
   '1': 'Treasure Hunt',
   '2': 'Tech Quiz',
   '3': 'Code Sprint',
-};
+}
 
 export default function DashboardPage({ params }: Props) {
-  const name = eventNames[params.eventId];
+  const name = eventNames[params.eventId]
 
-  if (!name) return notFound();
+  if (!name) return notFound()
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <aside className="w-[220px] bg-[#1a1a2e] text-white p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center mb-8 text-gradient-to-r from-blue-400 to-purple-500">Login</h1>
-        <nav className="space-y-4">
-          <button className="w-full text-left px-4 py-2 bg-[#0f0f1c] rounded-lg hover:bg-[#2d2d4a] flex items-center gap-2">
+    <div className="flex min-h-screen bg-gray-100">
+      <aside className="w-[230px] bg-[#1a1a2e] text-white flex flex-col items-center py-10 px-4 space-y-8 shadow-lg">
+        <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6">
+          Login
+        </h1>
+
+        <nav className="w-full space-y-4">
+          <Link
+            href={`/dashboard/${params.eventId}`}
+            className="w-full block text-left px-4 py-3 rounded-lg bg-[#0f0f1c] hover:bg-[#2d2d4a] transition-all"
+          >
             🖥️ Dashboard
-          </button>
-          <button className="w-full text-left px-4 py-2 bg-[#0f0f1c] rounded-lg hover:bg-[#2d2d4a] flex items-center gap-2">
+          </Link>
+          <Link
+            href="#"
+            className="w-full block text-left px-4 py-3 rounded-lg bg-[#0f0f1c] hover:bg-[#2d2d4a] transition-all"
+          >
             📝 Edit Details
-          </button>
-          <button className="w-full text-left px-4 py-2 bg-[#0f0f1c] rounded-lg hover:bg-[#2d2d4a] flex items-center gap-2">
+          </Link>
+          <Link
+            href="#"
+            className="w-full block text-left px-4 py-3 rounded-lg bg-[#0f0f1c] hover:bg-[#2d2d4a] transition-all"
+          >
             👥 Team
-          </button>
-          <button className="w-full text-left px-4 py-2 bg-[#0f0f1c] rounded-lg hover:bg-[#2d2d4a] flex items-center gap-2">
+          </Link>
+          <Link
+            href={`/dashboard/${params.eventId}/participants`}
+            className="w-full block text-left px-4 py-3 rounded-lg bg-[#0f0f1c] hover:bg-[#2d2d4a] transition-all"
+          >
             🧑‍🎓 Participants
-          </button>
+          </Link>
         </nav>
       </aside>
 
-      <main className="flex-1 bg-gray-100 p-8">
+      <main className="flex-1 p-10">
         <h2 className="text-2xl font-bold mb-6 text-black">Dashboard - {name}</h2>
 
         <div className="bg-white w-[200px] h-[150px] rounded-xl shadow-md flex flex-col items-center justify-center">
@@ -47,5 +62,5 @@ export default function DashboardPage({ params }: Props) {
         </div>
       </main>
     </div>
-  );
+  )
 }
